@@ -1,68 +1,116 @@
+let's build a chess board:
+
+`$ create-react-app checkers`
+
+
+first, we'll start with a bunch of divs (3x3) so we can get the squares styled with CSS
+
+./src/App.js
+```js
+//...
+
+render(){
+  return (
+    <div className='App'>
+      <div className='Board'>
+        <div className='Row'>
+          <div className='Square'/>
+          <div className='Square'/>
+          <div className='Square'/>
+        </div>
+        <div className='Row'>
+          <div className='Square'/>
+          <div className='Square'/>
+          <div className='Square'/>
+        </div>
+        <div className='Row'>
+          <div className='Square'/>
+          <div className='Square'/>
+          <div className='Square'/>
+        </div>
+      </div>
+    </div>
+  );
+}
+//...
+```
+
+not bad, just a div for a Board, some Row divs each with Square divs in them
+
+so far, this doesn't render anything though!
+
+let's style it a bit and see what we got
+
+Board is a flex container for the Rows, and we want those rows to stack vertically, so we'll set flex-direction: column-reverse;
+
+./src/App.css
+```
+.Board {
+  height: 80vh;
+  width: 80vh;
+  border: 1px solid black;
+}
+```
+
+now we can see it at least... let's add our [flex styling](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) so our Rows will know which way to go
+
+we need to make our .Board a flex container for Rows
+
+./src/App.css
+```css
+...
+
+  display: flex;
+  flex-direction: column-reverse;
+}
+```
+
+column-reverse will go from bottom to top (like a chess board is numbered for the white player :D)
+
+each Row will be a flex container for Squares, which we want to go from left to right, so we'll set flex-direction: row;
+
+```css
+.Row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+```
+let's put some basic styles on the Square just to see that our flex solution is working
+
+```css
+.Square {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+}
+```
+
+great, now we can center our Board and make it responsive
+
+./src/App.css
+```css
+.Board {
+  height: 80vh;
+  width: 80vh;
+  max-height: 80vw;
+  max-wiidth: 80vw;
+
+  margin: 10vh auto;
+
+  display: flex;
+  flex-direction: column-reverse;
+}
+```
+
+
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
