@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Piece from 'react-chess-pieces';
+//import Piece from 'react-chess-pieces';
+
+const Piece = ()=> null
 
 class App extends Component {
   render() {
@@ -19,7 +21,9 @@ class App extends Component {
             <div className='Square'/>
           </div>
           <div className='Row'>
-            <div className='Square'/>
+            <div className='Square'>
+              <Piece piece='k'/>
+            </div>
             <div className='Square'>
               <Piece piece='r'/>
             </div>

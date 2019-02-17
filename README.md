@@ -94,7 +94,7 @@ great, now we can center our Board and make it responsive
   height: 80vh;
   width: 80vh;
   max-height: 80vw;
-  max-wiidth: 80vw;
+  max-width: 80vw;
 
   margin: 10vh auto;
 
@@ -104,12 +104,102 @@ great, now we can center our Board and make it responsive
 ```
 
 
+let's make the board work for different grid sizes:
+
+./src/App.css
+```css
+
+
+.Row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.Square {
+  flex-grow: 1;
+  min-height: 100%;
+  border: 1px solid black;
+}
+```
+
+
+it's a good point right now to write a starting point for our pieces
+
+./src/App.js
+```js
+const pieces = [
+  ["R", "P", "", "", "", "", "p", "r"],
+  ["N", "P", "", "", "", "", "p", "n"],
+  ["B", "P", "", "", "", "", "p", "b"],
+  ["K", "P", "", "", "", "", "p", "k"],
+  ["Q", "P", "", "", "", "", "p", "q"],
+  ["B", "P", "", "", "", "", "p", "b"],
+  ["N", "P", "", "", "", "", "p", "n"],
+  ["R", "P", "", "", "", "", "p", "r"]
+];
+
+//...
+```
+
+Big letters will mean white pieces, little letters will mean black pieces.
+
+Now that we have an 8x8 starting position, we'll need to make our board work at any size
+
+Our goal here is to apply DRY = Don't Repeat Yourself
+
+We have a repetition of two things: Row and Square
+
+Let's learn how to rewrite those repetitions as [JSX loops](https://www.google.com/search?q=loops+in+jsx)
+
+(checkout in the first google result the stack overflow answer with ES6 in bold... third best answer)
+
+
+```js
+{[...Array(10)].map((x, i) =>
+  <ObjectRow key={i} />
+)}
+```
+
+that looks like we can use it here if we're clever enough!
+
+./src/App.js
+```js
+<div className='Board'>
+  {pieces.map((colOfPieces, rowIndex)=> (
+    <div className='Row'>
+      <div className='Square'/>
+      <div className='Square'/>
+      <div className='Square'/>
+    </div>
+  ))}
+</div>
+```
+
+we know that pieces will always be the right size for our board, so we can use it to loop over to generate the rows
+
+similarly, we can generate the squares
+
+./src/App.js
+```js
+<div className='Board'>
+  {this.state.pieces.map( (colOfPieces, rowIndex)=> (
+    <div className='Row'>
+      {colOfPieces.map( (piece, colIndex)=> (
+        <div className='Square'>
+          {piece}
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
+```
 
 
 
 
-
-
+(( remember is selectedSquare not selectedPiece ))
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
