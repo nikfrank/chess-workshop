@@ -80,6 +80,8 @@ let's replace it with
 //...
 ```
 
+after we update our code, we should save it (ctrl + s in most text editors) so we can see it running updated in the browser.
+
 talk about `div` soup!, just a div for a Board, some Row divs each with Square divs in them
 
 <img src="https://i.imgur.com/ZIISrIb.png?1" height=300 width=542 />
@@ -99,7 +101,7 @@ let's set our `.Board` to take up most of the screen (we'll use [view height uni
 
 so far, all that's displaying is a black square outline, we can see it at least... let's add our [flex styling](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) so our `.Row`s will know which way to go
 
-##### flex container
+#### flex containers
 
 we need to make our `.Board` a flex container for `.Row`s (`.Row`'s will  be flex containers for `.Square`s)
 
@@ -115,14 +117,15 @@ we want those rows to stack vertically, so we'll set `flex-direction: column-rev
 }
 ```
 
-`column-reverse` will go from bottom to top (like a chess board is numbered for the white player), though it is entirely possible to get this to work with `column` if you reversed the order somewhere else.
+`column-reverse` will go from bottom to top (like a chess board is numbered for the white player), though it is entirely possible to get this to work with `flex-direction: column;` if you reversed the order somewhere else.
 
-(intuitively, `flex-direction: column-reverse` can be read as "each child (here `.Row`) will be above the previous one")
+(intuitively, `flex-direction: column-reverse;` can be read as "each child (here `.Row`) will be above the previous one")
 
 like we said earlier, each `Row` will be a flex container for `.Square`s, which we want to go from left to right, so we'll set `flex-direction: row;`
 
 (intuitively `flex-direction: row;` can be read as "each child (here `.Square`) will be to the right of the previous one")
 
+<sub>./src/App.css</sub>
 ```css
 .Row {
   width: 100%;
@@ -133,6 +136,7 @@ like we said earlier, each `Row` will be a flex container for `.Square`s, which 
 
 let's put some basic styles on the `.Square` just to see that our flex solution is working.
 
+<sub>./src/App.css</sub>
 ```css
 .Square {
   height: 50px;
@@ -145,7 +149,7 @@ now that the `.Square` divs have a size, flexbox will arrange them intuitively b
 
 we should center our Board on the screen before anyone sees it stuck to the side!
 
-./src/App.css
+<sub>./src/App.css</sub>
 ```css
 .Board {
 //...
@@ -192,16 +196,15 @@ superb! Everyone should take 2 minutes now to add "responsive UI / UX" to their 
 
 "Responsive" is a fancy business word which means "works on mobile phones, tablets and desktop", so we can also add 2000NIS per month to our salary.
 
+
 #### 8x8 board
 
 So far, our board is 3x3 with 50px hard-coded squares. We want our CSS to work for any board size, and for it to auto-size the squares to fit.
 
 let's make use of [flex-grow](https://css-tricks.com/almanac/properties/f/flex-grow/) to achieve this modest aim.
 
-./src/App.css
+<sub>./src/App.css</sub>
 ```css
-
-
 .Row {
   width: 100%;
   display: flex;
@@ -216,14 +219,14 @@ let's make use of [flex-grow](https://css-tricks.com/almanac/properties/f/flex-g
 }
 ```
 
-`min-height` on the `.Square` is necessary to give the div a size because it has no children elements - `100%` will by default be measured reelative to the flex parent, which here is the `.Row`, which is what we want (that the Square be the entire height of the Row)
+`min-height` on the `.Square` is necessary to give the div a size because it has no children elements - `100%` will by default be measured reelative to the flex parent, which here is the `.Row`, which is what we want (that the `.Square` be the entire height of the `.Row`)
 
 
-##### initial board, array of arrays
+#### initial board, array of arrays
 
 it's a good point right now to write a starting point for our pieces, which we'll use to render the board.
 
-./src/App.js
+<sub>./src/App.js</sub>
 ```js
 const initialPosition = [
   ["R", "N", "B", "Q", "K", "B", "N", "R"],
@@ -242,7 +245,7 @@ Big letters will mean white pieces, little letters will mean black pieces.
 
 we'll want to use this right away to initialize our state with
 
-./src/App.js
+<sub>./src/App.js</sub>
 ```js
 //...
 
@@ -253,6 +256,8 @@ class App extends Component {
 
 //...
 ```
+
+##### arrays in js
 
 let's take a minute to learn about arrays in javascript, so we'll be comfortable with our pieces matrix (and learn that it's not really a matrix)
 
@@ -322,17 +327,17 @@ that looks like we can use it here if we're clever enough!
 
 let's break it down:
 
-- `{` open a breakout to go from html mode to js mode in JSX
-- `[...Array(10)]` some array
-- `.map(` mapping over the array, which is almost always how we loop in JSX
-- `(x, i)=> <ObjectRow key={i}/>` a mapping function which returns the repeated JSX tag
-- `)}` closing our breakout
+- `{` open a breakout to go from html mode to js mode in JSX (( exactly what we need ))
+- `[...Array(10)]` some array (( we have some array! `this.state.pieces` ))
+- `.map(` mapping over the array, which is almost always how we loop in JSX  (( exactly what we need to do ))
+- `(x, i)=> <ObjectRow key={i}/>` a mapping function which returns the repeated JSX tag  (( we'll put a different tag ))
+- `)}` closing our breakout  (( closing brackets is fun in JS ))
 
 
 we can use the exact same pattern to loop out a bunch of `.Row`s out of our `this.state.pieces` array
 
 
-./src/App.js
+<sub>./src/App.js</sub>
 ```js
 <div className='Board'>
   {this.state.pieces.map((rowOfPieces, rowIndex)=> (
@@ -347,14 +352,14 @@ we can use the exact same pattern to loop out a bunch of `.Row`s out of our `thi
 
 we know that pieces will always be the right size for our board, so we can use it to loop over to generate the rows
 
-similarly, we can generate the squares
+similarly, we can generate the squares from the `rowOfPieces` array from each step of our first loop
 
-./src/App.js
+<sub>./src/App.js</sub>
 ```js
 <div className='Board'>
-  {this.state.pieces.map( (colOfPieces, rowIndex)=> (
+  {this.state.pieces.map( (rowOfPieces, rowIndex)=> (
     <div className='Row'>
-      {colOfPieces.map( (piece, colIndex)=> (
+      {rowOfPieces.map( (piece, colIndex)=> (
         <div className='Square'>
           {piece}
         </div>
@@ -368,9 +373,36 @@ If you look closely, you'll notice that the squares are slightly different sizes
 
 so instead of fixing this with CSS, we can go ahead to the next step (installing `react-chess-pieces` svg library) which will solve the problem as well.
 
+also, if you check your console in the devtools, you'll see react complaining about `key`s on elements.
+
+Key is how react can tell the difference between different elements in a list (usually generated by a .map loop)
+
+<img src="https://thumbs.gfycat.com/SphericalTartBoubou-max-1mb.gif" height=240 width=320 />
+
+all we have to do is put a unique key={value} on each repeated item, which is easy enough using the indices from our loops
 
 
-##### installing an npm module
+<sub>./src/App.js</sub>
+```js
+<div className='Board'>
+  {this.state.pieces.map( (rowOfPieces, rowIndex)=> (
+    <div key={rowIndex} className='Row'>
+      {rowOfPieces.map( (piece, colIndex)=> (
+        <div key={colIndex} className='Square'>
+          {piece}
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
+```
+
+in some cases, this will help React keep our app fast when reordering elements. Here we're never reordering elements, so we're just doing this to get rid of the error message. D:
+
+
+
+
+#### installing an npm module
 
 let's open up a shell (git bash for windows, or mac users use terminal) in the project directory and run
 
