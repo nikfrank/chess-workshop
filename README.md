@@ -17,6 +17,16 @@ then we can get started by running `npm start` and opening [localhost:3000](http
 
 [check out these instructions to get npm, node, and create-react-app installed](https://elijahmanor.com/cra-getting-started/)
 
+later we'll need yarn which we can get with
+
+`$ sudo npm install -g yarn` on linux / mac (it will ask to auth)
+
+or on windows, run git bash as an administrator and run
+
+`$ npm install -g yarn`
+
+then close the terminal / shell / git bash window and reopen it to have `yarn` available! :D
+
 ---
 
 without any further ado, let's write some code:
@@ -267,6 +277,8 @@ class App extends Component {
 //...
 ```
 
+now later, we'll be able to read out the current board state from `this.state.pieces`
+
 ##### arrays in js
 
 let's take a minute to learn about arrays in javascript, so we'll be comfortable with our pieces matrix (and learn that it's not really a matrix)
@@ -377,6 +389,8 @@ we can use the exact same pattern to loop out a bunch of `.Row`s out of our `thi
 
 we know that pieces will always be the right size for our board, so we can use it to loop over to generate the rows
 
+that's a lot shorter than having to repeat out a bunch of `.Row` divs eh?
+
 similarly, we can generate the squares from the `rowOfPieces` array from each step of our first loop
 
 <sub>./src/App.js</sub>
@@ -396,7 +410,7 @@ similarly, we can generate the squares from the `rowOfPieces` array from each st
 
 If you look closely, you'll notice that the squares are slightly different sizes (if they have a piece letter rendered in them or not)
 
-so instead of fixing this with CSS, we can go ahead to the next step (installing `react-chess-pieces` svg library) which will solve the problem as well.
+so instead of fixing this with CSS now, we can wait for it to be fixed in two steps (using the `react-chess-pieces` svg library will solve the problem as well)
 
 also, if you check your console in the devtools, you'll see react complaining about `key`s on elements.
 
@@ -425,13 +439,60 @@ all we have to do is put a unique key={value} on each repeated item, which is ea
 in some cases, this will help React keep our app fast when reordering elements. Here we're never reordering elements, so we're just doing this to get rid of the error message. D:
 
 
+#### colouring the squares using CSS's nth-child pseudoselector
+
+
+our `.Board` looks pretty barren right now! Let's give alternating colors to the `.Square`s
+
+regulation chessboards have a black square at A1 (which is [0][0] for us) and alternate from there
+
+<img src="https://somemoresport.files.wordpress.com/2013/10/20131022-181008.jpg" height=271 width=500 />
+
+so whenever the indices are both even (like A1 [0][0] was) or both odd (like B6 [1][5] is) we want a dark square
+
+CSS tricks has a great reference about `:nth-child` patterns [here](https://css-tricks.com/useful-nth-child-recipies/)
+
+<sub>./src/App.css</sub>
+```css
+.Row:nth-child(2n) .Square:nth-child(2n),
+.Row:nth-child(2n + 1) .Square:nth-child(2n + 1) {
+  background-color: #22d;
+}
+```
+
+let's break down the first selector `.Row:nth-child(2n) .Square:nth-child(2n)`
+
+the trick here is that the first pseudoselector (`:nth-child(2n)`) applies to the first tag selector (`.Row`), which means we're selecting an even numbered `.Row`
+
+similarly and simultaneously, we're selecting an even numbered column (as the Squares in the row are one per column)
+
+together, we're selecting any (even, even) pair and applying the `background-color` to it
+
+... the (odd, odd) selector works the same way, and colours those `.Square`s with the same rule, using a `,` to separate the selectors
+
+
+
+lastly whenever it's (even, odd) (like A2 [0][1] is) or (odd, even) (like F5 [5][4] is) we want a light square
+
+<sub>./src/App.css</sub>
+```css
+.Row:nth-child(2n) .Square:nth-child(2n + 1),
+.Row:nth-child(2n + 1) .Square:nth-child(2n) {
+  background-color: #ccc;
+}
+```
+
+it may be instructive to tinker with these selectors (only put one of the two for each color for instance) to understand better how they work.
+
+<img src="https://i.pinimg.com/originals/6b/84/09/6b84099e0a76c4721e6836302cba0c61.gif" height=324 width=480/>
+
 
 
 #### installing an npm module
 
 let's open up a shell (git bash for windows, or mac users use terminal) in the project directory and run
 
-`$ npm install --save react-chess-pieces`
+`$ yarn add react-chess-pieces`
 
 this will download the latest version of a component library I wrote which makes rendering chess pieces easy and fun!
 
