@@ -38,6 +38,7 @@ let open up <sub>./src/App.js</sub>
 where we see the default render function
 
 ```html
+  render(){
    return (
       <div className="App">
         <header className="App-header">
