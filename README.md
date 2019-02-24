@@ -1,13 +1,21 @@
 Hello everyone! let's build a chess board:
 
-`$ create-react-app chess`
-
 
 This is an entry level workshop to learn CSS Flexbox, ReactJS and using npm modules in React.
 
 We may expand it later as a career track workshop using chess.js to implement the entirety of the chess game.
 
 Flex is a relatively new (CSS3) system which makes arranging lists of items on the page super intuitive and saves us from having to write dark-age 2005 ebaumsworld CSS.
+
+---
+
+let's open up a shell (git bash for windows, or mac users use terminal) in our code projects directory and run
+
+`$ create-react-app chess`
+
+then we can get started by running `npm start` and opening [localhost:3000](http://localhost:3000)
+
+[check out these instructions to get npm, node, and create-react-app installed](https://elijahmanor.com/cra-getting-started/)
 
 ---
 
@@ -89,9 +97,9 @@ let's set our `.Board` to take up most of the screen (we'll use [view height uni
 }
 ```
 
-by running `npm start` and opening [localhost:3000](http://localhost:3000)
+so far, all that's displaying is a black square outline, we can see it at least... let's add our [flex styling](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) so our `.Row`s will know which way to go
 
-we can see it at least... let's add our [flex styling](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) so our Rows will know which way to go
+##### flex container
 
 we need to make our `.Board` a flex container for `.Row`s (`.Row`'s will  be flex containers for `.Square`s)
 
