@@ -129,21 +129,34 @@ it's a good point right now to write a starting point for our pieces
 
 ./src/App.js
 ```js
-const pieces = [
-  ["R", "P", "", "", "", "", "p", "r"],
-  ["N", "P", "", "", "", "", "p", "n"],
-  ["B", "P", "", "", "", "", "p", "b"],
-  ["K", "P", "", "", "", "", "p", "k"],
-  ["Q", "P", "", "", "", "", "p", "q"],
-  ["B", "P", "", "", "", "", "p", "b"],
-  ["N", "P", "", "", "", "", "p", "n"],
-  ["R", "P", "", "", "", "", "p", "r"]
+const initialPosition = [
+  ["R", "N", "B", "Q", "K", "B", "N", "R"],
+  ["P", "P", "P", "P", "P", "P", "P", "P"],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["p", "p", "p", "p", "p", "p", "p", "p"],
+  ["r", "n", "b", "q", "k", "b", "n", "r"]
 ];
-
 //...
 ```
 
 Big letters will mean white pieces, little letters will mean black pieces.
+
+we'll want to use this right away to initialize our state with
+
+./src/App.js
+```js
+//...
+
+class App extends Component {
+  state = {
+    pieces: initialPosition,
+  }
+
+//...
+```
 
 Now that we have an 8x8 starting position, we'll need to make our board work at any size
 
@@ -167,7 +180,7 @@ that looks like we can use it here if we're clever enough!
 ./src/App.js
 ```js
 <div className='Board'>
-  {pieces.map((colOfPieces, rowIndex)=> (
+  {this.state.pieces.map((colOfPieces, rowIndex)=> (
     <div className='Row'>
       <div className='Square'/>
       <div className='Square'/>
@@ -195,6 +208,41 @@ similarly, we can generate the squares
   ))}
 </div>
 ```
+
+If you look closely, you'll notic that the squares are slightly different sizes (if they have a piece letter rendered in them or not)
+
+so instead of fixing this with CSS, we can go ahead to the next step (installing `react-chess-pieces` svg library) which will solve the problem as well.
+
+
+
+##### installing an npm module
+
+let's open up a shell (git bash for windows, terminal for mac users) in the project directory and run
+
+`$ npm install --save react-chess-pieces`
+
+this will download the latest version of a component library I wrote which makes rendering chess pieces easy and fun!
+
+we can read the docs for the library in its [github project page](https://github.com/nikfrank/react-chess-pieces)
+
+it exports (default) one Component called `Piece` which will render the piece we tell it to in its `piece={...}` prop
+
+
+./src/App.js
+```js
+//...
+
+import Piece from 'react-chess-pieces';
+
+//...
+
+        <div className='Square'>
+          <Piece piece={piece}/>
+        </div>
+//...
+```
+
+and there you have it!
 
 
 

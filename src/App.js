@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
 import './App.css';
 
-//import Piece from 'react-chess-pieces';
+import Piece from 'react-chess-pieces';
 
-const Piece = ()=> null
+const initialPosition = [
+  ["R", "N", "B", "Q", "K", "B", "N", "R"],
+  ["P", "P", "P", "P", "P", "P", "P", "P"],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", ""],
+  ["p", "p", "p", "p", "p", "p", "p", "p"],
+  ["r", "n", "b", "q", "k", "b", "n", "r"]
+];
+
 
 class App extends Component {
+
+  state = {
+    pieces: initialPosition,
+  }
+  
   render() {
     return (
       <div className="App">
         <div className='Board'>
-          <div className='Row'>
-            <div className='Square'/>
-            <div className='Square'/>
-            <div className='Square'/>
-          </div>
-          <div className='Row'>
-            <div className='Square'/>
-            <div className='Square'/>
-            <div className='Square'/>
-          </div>
-          <div className='Row'>
-            <div className='Square'>
-              <Piece piece='k'/>
+          {this.state.pieces.map((colOfPieces, rowIndex)=> (
+            <div className='Row'>
+              {colOfPieces.map( (piece, colIndex)=> (
+                <div className='Square'>
+                  <Piece piece={piece}/>
+                </div>
+              ))}
             </div>
-            <div className='Square'>
-              <Piece piece='r'/>
-            </div>
-            <div className='Square'>
-              <Piece piece='Q'/>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     );
