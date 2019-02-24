@@ -299,6 +299,7 @@ and they don't all have to be the same type
 `const garfieldsListOfDays = ['Sunday', 'Tuesday', null, 'Wednesday', 'Thursday', 'Friday', 'Saturday'];`
 
 `console.log( garfieldsListOfDays[1] ); // prints out 'Tuesday' to the console`
+
 `console.log( garfieldsListOfDays[2] ); // prints out null to the console`
 
 <img src="https://66.media.tumblr.com/29f72477ece025dd8f7d1a64e20cbff4/tumblr_mji5xuSk1v1rtut36o1_1280.gif" height=177 width=600 />
