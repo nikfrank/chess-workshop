@@ -279,7 +279,7 @@ we could put whatever values we want in our array
 
 and we can read values out zero-indexed [because Dijkstra says so](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html)
 
-`console.log( listOfDays[0] ); // prints out 'Sunday' to the console
+`console.log( listOfDays[0] ); // prints out 'Sunday' to the console`
 
 
 and they don't all have to be the same type
@@ -288,9 +288,24 @@ and they don't all have to be the same type
 
 `console.log( garfieldsListOfDays[1] ); // prints out undefined to the console`
 
+<img src="https://66.media.tumblr.com/29f72477ece025dd8f7d1a64e20cbff4/tumblr_mji5xuSk1v1rtut36o1_1280.gif" height=177 width=600 />
+
 OR
 
-`const userInputs = [ 0, 'blah', {}, null, [1, 2, 'three'] ];`
+```
+const foremen = [
+  { name: 'George', suffix: 'sr' },
+  { name: 'George', suffix: 'jr' },
+  { name: 'George', suffix: 'III' },
+  { name: 'Georgetta', suffix: '' },
+];
+
+console.log( foremen[1].name, foremen[1].suffix ); // logs 'George' 'jr'
+```
+
+OR
+
+`const userInputs = [ 0, 'blah', { great: 'success' }, null, [1, 2, 'three'] ];`
 
 `console.log( userInputs[4][2] ); // prints out 'three' to the console`
 
@@ -322,7 +337,7 @@ Our goal here is to apply DRY = Don't Repeat Yourself
 
 We have a repetition of two things: a bunch of repeated `.Row`s and a bunch of repeated `.Square`s
 
-Let's learn how to rewrite those repetitions by [googling JSX loops](https://www.google.com/search?q=loops+in+jsx)
+Let's learn how to rewrite those repetitions by <a href="https://www.google.com/search?q=loops+in+jsx" target="_blank">googling JSX loops</a>
 
 (checkout in the first google result the stack overflow answer with ES6 in bold... third best answer)
 
