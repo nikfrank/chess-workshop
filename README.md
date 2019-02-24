@@ -287,26 +287,33 @@ when we say `const listOfStuff = [];`, we're making a new constant named `listOf
 
 we could put whatever values we want in our array
 
-`const listOfDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];`
+```js
+const listOfDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+```
 
 and we can read values out zero-indexed [because Dijkstra says so](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD831.html)
 
-`console.log( listOfDays[0] ); // prints out 'Sunday' to the console`
+```js
+console.log( listOfDays[0] ); // prints out 'Sunday' to the console
+```
 
 
 and they don't all have to be the same type
 
-`const garfieldsListOfDays = ['Sunday', 'Tuesday', null, 'Wednesday', 'Thursday', 'Friday', 'Saturday'];`
+```js
+const garfieldsListOfDays = ['Sunday', 'Tuesday', null, 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+```
 
-`console.log( garfieldsListOfDays[1] ); // prints out 'Tuesday' to the console`
-
-`console.log( garfieldsListOfDays[2] ); // prints out null to the console`
+```js
+console.log( garfieldsListOfDays[1] ); // prints out 'Tuesday' to the console
+console.log( garfieldsListOfDays[2] ); // prints out null to the console
+```
 
 <img src="https://66.media.tumblr.com/29f72477ece025dd8f7d1a64e20cbff4/tumblr_mji5xuSk1v1rtut36o1_1280.gif" height=177 width=600 />
 
 OR
 
-```
+```js
 const foremen = [
   { name: 'George', suffix: 'sr' },
   { name: 'George', suffix: 'jr' },
@@ -319,9 +326,11 @@ console.log( foremen[1].name, foremen[1].suffix ); // logs 'George' 'jr'
 
 OR
 
-`const userInputs = [ 0, 'blah', { great: 'success' }, null, [1, 2, 'three'] ];`
+```js
+const userInputs = [ 0, 'blah', { great: 'success' }, null, [1, 2, 'three'] ];
 
-`console.log( userInputs[4][2] ); // prints out 'three' to the console`
+console.log( userInputs[4][2] ); // prints out 'three' to the console
+```
 
 
 wait, what? is that an array inside an array? ... yes. yes it is.
@@ -333,7 +342,7 @@ js is all about intuition, and it turns out allowing arrays to have arrays insid
 
 in our case we can read out which piece is in `this.state.pieces` at a given `columnIndex` and `rowIndex` with
 
-```
+```js
 const columnIndex = 3; // the fourth column, aka the "D file" in chess lingo
 const rowIndex = 0; // the first row, aka the "1st rank"
 
