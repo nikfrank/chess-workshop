@@ -196,12 +196,16 @@ superb! Everyone should take 2 minutes now to add "responsive UI / UX" to their 
 
 "Responsive" is a fancy business word which means "works on mobile phones, tablets and desktop", so we can also add 2000NIS per month to our salary.
 
+<img src="https://i.giphy.com/media/l41lFvtuqmey9QTAY/giphy.webp" height=304 width=480 />
+
 
 #### 8x8 board
 
 So far, our board is 3x3 with 50px hard-coded squares. We want our CSS to work for any board size, and for it to auto-size the squares to fit.
 
 let's make use of [flex-grow](https://css-tricks.com/almanac/properties/f/flex-grow/) to achieve this modest aim.
+
+we'll also need a `min-height` on the `.Square`
 
 <sub>./src/App.css</sub>
 ```css
@@ -226,8 +230,12 @@ let's make use of [flex-grow](https://css-tricks.com/almanac/properties/f/flex-g
 
 it's a good point right now to write a starting point for our pieces, which we'll use to render the board.
 
+let's define a constant above our `Component` to use within it
+
 <sub>./src/App.js</sub>
 ```js
+//...
+
 const initialPosition = [
   ["R", "N", "B", "Q", "K", "B", "N", "R"],
   ["P", "P", "P", "P", "P", "P", "P", "P"],
@@ -238,7 +246,9 @@ const initialPosition = [
   ["p", "p", "p", "p", "p", "p", "p", "p"],
   ["r", "n", "b", "q", "k", "b", "n", "r"]
 ];
-//...
+
+class App extends Component {
+  //...
 ```
 
 Big letters will mean white pieces, little letters will mean black pieces.
