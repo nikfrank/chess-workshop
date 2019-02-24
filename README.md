@@ -347,6 +347,10 @@ const columnIndex = 3; // the fourth column, aka the "D file" in chess lingo
 const rowIndex = 0; // the first row, aka the "1st rank"
 
 console.log( this.state.pieces[ rowIndex ][ columnIndex ] ); // 'Q', a white Queen, in the starting position at least
+
+// or if we wanted the entire column
+
+console.log( this.state.pieces[0] ); // ['R','N','B','Q','K','B','N','R'] is logged
 ```
 
 
