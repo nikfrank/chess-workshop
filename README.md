@@ -346,7 +346,8 @@ in our case we can read out which piece is in `this.state.pieces` at a given `co
 const columnIndex = 3; // the fourth column, aka the "D file" in chess lingo
 const rowIndex = 0; // the first row, aka the "1st rank"
 
-console.log( this.state.pieces[ rowIndex ][ columnIndex ] ); // 'Q', a white Queen, in the starting position at least
+console.log( this.state.pieces[ rowIndex ][ columnIndex ] ); // 'Q', a white Queen
+// ... in the starting position at least
 
 // or if we wanted the entire column
 
