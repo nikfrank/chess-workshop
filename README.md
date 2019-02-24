@@ -403,7 +403,7 @@ we can use the exact same pattern to loop out a bunch of `.Row`s out of our `thi
 </div>
 ```
 
-we know that pieces will always be the right size for our board, so we can use it to loop over to generate the rows
+we know that `this.state.pieces` will always be the right size for our board, so we can use it to loop over to generate the rows
 
 that's a lot shorter than having to repeat out a bunch of `.Row` divs eh?
 
