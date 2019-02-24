@@ -15,33 +15,60 @@ without any further ado, let's write some code:
 
 first, we'll start with a bunch of divs (3x3) so we can get the squares styled with CSS
 
-./src/App.js
-```js
+let open up <sub>./src/App.js</sub>
+
+where we see the default render function
+
+```html
+   return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+    );
+  }
+```
+
+let's replace it with
+
+```html
 //...
 
-render(){
-  return (
-    <div className='App'>
-      <div className='Board'>
-        <div className='Row'>
-          <div className='Square'/>
-          <div className='Square'/>
-          <div className='Square'/>
-        </div>
-        <div className='Row'>
-          <div className='Square'/>
-          <div className='Square'/>
-          <div className='Square'/>
-        </div>
-        <div className='Row'>
-          <div className='Square'/>
-          <div className='Square'/>
-          <div className='Square'/>
+  render(){
+    return (
+      <div className='App'>
+        <div className='Board'>
+          <div className='Row'>
+            <div className='Square'/>
+            <div className='Square'/>
+            <div className='Square'/>
+          </div>
+          <div className='Row'>
+            <div className='Square'/>
+            <div className='Square'/>
+            <div className='Square'/>
+          </div>
+          <div className='Row'>
+            <div className='Square'/>
+            <div className='Square'/>
+            <div className='Square'/>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 //...
 ```
 
@@ -51,10 +78,10 @@ talk about `div` soup!, just a div for a Board, some Row divs each with Square d
 
 so far, this doesn't render anything we can see!
 
-let's style it a bit and see what we got
+let's set our `.Board` to take up most of the screen (we'll use [view height units](https://www.w3schools.com/cssref/css_units.asp))
 
-./src/App.css
-```
+<sub>./src/App.css</sub>
+```css
 .Board {
   height: 80vh;
   width: 80vh;
@@ -70,9 +97,10 @@ we need to make our `.Board` a flex container for `.Row`s (`.Row`'s will  be fle
 
 we want those rows to stack vertically, so we'll set `flex-direction: column-reverse;`
 
-./src/App.css
+<sub>./src/App.css</sub>
 ```css
-...
+.Board {
+//...
 
   display: flex;
   flex-direction: column-reverse;
@@ -131,9 +159,7 @@ Right now, our board works only when our screen is wider than it is tall.
 
 This is because we use `80vh` for the height and width, which if height > 1.25*width, will make our board wider than the screen!
 
-"Responsive" is a fancy business word which means "works on mobile phones, tablets and desktop"
-
-we can test how our site / app looks for different screen sizes / ratio by opening up the devtool panel (ctrl + shift + i, cmd + shift + j for mac) and reorienting / resizing the panel. Chrome also has some nifty tools for pretending to run on a mobile screen [check out the docs here](https://developers.google.com/web/tools/chrome-devtools/device-mode/)
+we can test how our site / app looks for different screen sizes / ratio by opening up the devtool panel (ctrl + shift + i, or on mac cmd + shift + j) and reorienting / resizing the panel. Chrome also has some nifty tools for pretending to run on a mobile screen [check out the docs here](https://developers.google.com/web/tools/chrome-devtools/device-mode/)
 
 we can make the "Board wider than screen" bug using the devtool resize trick.
 
@@ -154,8 +180,9 @@ To fix this, we can set a `max-height` and `max-width` of `80vw`. These rules ([
 }
 ```
 
-superb! Everyone should take 2 minutes now to add "responsive UI / UX" to their CV, and 2000NIS per month to their salary.
+superb! Everyone should take 2 minutes now to add "responsive UI / UX" to their CV
 
+"Responsive" is a fancy business word which means "works on mobile phones, tablets and desktop", so we can also add 2000NIS per month to our salary.
 
 #### 8x8 board
 
@@ -337,7 +364,7 @@ so instead of fixing this with CSS, we can go ahead to the next step (installing
 
 ##### installing an npm module
 
-let's open up a shell (git bash for windows, terminal for mac users) in the project directory and run
+let's open up a shell (git bash for windows, or mac users use terminal) in the project directory and run
 
 `$ npm install --save react-chess-pieces`
 
