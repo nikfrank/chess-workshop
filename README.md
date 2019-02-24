@@ -47,6 +47,8 @@ render(){
 
 talk about `div` soup!, just a div for a Board, some Row divs each with Square divs in them
 
+<img src="https://i.imgur.com/ZIISrIb.png?1" height=300 width=542 />
+
 so far, this doesn't render anything we can see!
 
 let's style it a bit and see what we got
