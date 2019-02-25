@@ -9,6 +9,25 @@ Flex is a relatively new (CSS3) system which makes arranging lists of items on t
 
 ---
 
+agenda:
+
+- <a href="#rending-basics">rendering basics</a>
+  - <a href="#flex-containers">flex containers</a>
+  - <a href="#responsive-design">responsive design</a>
+  - <a href="#8x8-board">8x8 board</a>
+    - <a href="#initial-board-array-of-arrays">initial board, array of arrays</a>
+    - <a href="#arrays-in-js">arrays in js</a>
+    - <a href="#rendering-from-our-array">rendering from our array</a>
+    - <a href="#colouring-the-squares">colouring the squares</a>
+  - <a href="#installing-an-npm-module">installing an npm module</a>
+  - <a href="#moving-the-pieces-around">moving the pieces around</a>
+    - <a href="#clicking-a-piece">clicking a piece</a>
+    - <a href="#clicking-to-move">clicking to move</a>
+    - <a href="#unselecting-the-piece">unselecting the piece</a>
+
+
+---
+
 let's open up a shell (git bash for windows, or mac users use terminal) in our code projects directory and run
 
 `$ create-react-app chess`
@@ -28,6 +47,8 @@ or on windows, run git bash as an administrator and run
 then close the terminal / shell / git bash window and reopen it to have `yarn` available! :D
 
 ---
+
+### rendering basics
 
 without any further ado, let's write some code:
 
@@ -237,7 +258,7 @@ we'll also need a `min-height` on the `.Square`
 `min-height` on the `.Square` is necessary to give the div a size because it has no children elements - `100%` will by default be measured reelative to the flex parent, which here is the `.Row`, which is what we want (that the `.Square` be the entire height of the `.Row`)
 
 
-#### initial board, array of arrays
+##### initial board, array of arrays
 
 it's a good point right now to write a starting point for our pieces, which we'll use to render the board.
 
@@ -456,8 +477,9 @@ all we have to do is put a unique key={value} on each repeated item, which is ea
 in some cases, this will help React keep our app fast when reordering elements. Here we're never reordering elements, so we're just doing this to get rid of the error message. D:
 
 
-#### colouring the squares using CSS's nth-child pseudoselector
+##### colouring the squares
 
+using CSS's nth-child pseudoselector
 
 our `.Board` looks pretty barren right now! Let's give alternating colors to the `.Square`s
 
@@ -532,12 +554,252 @@ import Piece from 'react-chess-pieces';
 //...
 ```
 
-and there you have it!
+and there you have it! now let's figure out how to move the pieces around
+
+
+#### moving the pieces around
+
+##### clicking a piece
+
+learn about setState
+
+select a square
+
+<sub>./src/App.js</sub>
+```js
+//..
+
+  clickSquare = (col, row)=> this.setState({ selectedCol: col, selectedRow: row })
+
+//...
+
+  <div className="Square" onClick={()=> this.clickSquare(colIndex, rowIndex)}>
+    <Piece piece={piece}/>
+  </div>
+
+//...
+```
+
+ok so what?
+
+let's log out our `this.state.selectedCol` and `this.state.selectedRow` to see what we get
+
+<sub>./src/App.js</sub>
+```js
+//..
+
+  render(){
+    console.log( this.state.selectedCol, this.state.selectedRow );
+
+    //...
+  }
+//...
+```
+
+CAREFUL! logging the state in the render function is a memory leak, so we want to make sure to delete this before we push our code!
+
+now when we run our app, we can see the `selectedCol/Row` getting saved to our state
+
+let's use this value in our render to highlight the square when it is selected, then we can delete the console.log
+
+
+
+to accomplish this, let's learn about the `style` prop in React
+
+remember in HTML, we can apply styles directly to the element using the `style` attribute like so:
+
+```html
+<div style="color: green; font-size: 20px; font-weight: bold;"> Heyo </div>
+```
+
+when facebook (tm) built React, they wanted to make things easier to do in javascript,
+ so the `style` attribute changed from being a string of CSS to the `style` prop,
+ which takes an object full of CSS rules.
+ They were even nice enough to change the `kebab-case` CSS rules like `style="background-color: green;"`
+ to `camelCase` versions in js like `style={{ backgroundColor: 'green' }}`
+
+there's a few other little differences you can read about [here](https://google.com/search/q=css+in+js+react+style+prop)
+
+
+what's the idea here?
+
+we want to be able to change the style of our rendered elements on the fly based on `this.state`.something
+
+we could calculate `className` on the fly like:
+
+```js
+<div className={this.state.yellow ? 'yellow' : ''}> Yellow? </div>
+```
+
+and define some CSS class to style out div
+
+```css
+.yellow {
+  background-color: yellow;
+}
+```
+
+and that would be okay for us, but we'd have to calculate some ugly `className` combination string
+
+There's a shorter more elegant solution that gets us to our highlight selection feature faster!
+
+I'll give you the opportunity to pause this workshop here and try to figure out
+
+the solution you're looking for calculates a `style` prop using `this.state`.something and all in one line of code, highlights the `.Square` that the user selected...
+
+...
+
+<img src="/something" width=200 height=800 />
+...
+
+
+for everyone who figured it out, congratulations, you're a great inline conditional writer
+
+for those of you who are just here for the show:
+
+
+what we want to do is declare a `style` prop that puts a `backgroundColor` value onto our div
+
+we can start with
+
+<sub>./src/App.js</sub>
+```js
+//...
+
+<div className='Square' style={{ backgroundColor: 'gold' }}>
+  <Piece piece={piece}
+</div>
+
+//...
+```
+
+but that always makes every `.Square` gold! We want to use the indices we saved in `this.state.selectedCol/Row` in the previous step to decide if this square should be gold or not.
+
+
+so this is where we get to use the inline conditional (ternary) operator to get our task done
+
+<sub>./src/App.js</sub>
+```js
+//...
+
+<div className='Square'
+     style={{ backgroundColor: this.state.selectedCol === colIndex &&
+                               this.state.selectedRow === rowIndex ? 'gold' : '' }}>
+  <Piece piece={piece}
+</div>
+
+//...
+```
+
+so this way, we change to a gold backgroundColor iff (in our loop) we're currently rendering the selected square (which we know by checking that the current `colIndex` and `rowIndex` that we're rendering are equal to the values we saved in `state` during the click handle)
+
+
+very good!
+
+
+next we'll think through what to do on the next click (to move the piece or not to move the piece!)
+
+
+##### clicking to move
+
+when we click again, we should see that the selected square updates each time to the newly clicked square
+
+while entertaining, this is not how we're going to win at chess!
+
+what we want to do instead, is when we click (and out `clickSquare` function is run), if there is a number saved already in `this.state.selectedCol/Row`, we want to move the piece
+
+
+let's pseducode this in
+
+
+<sub>./src/App.js</sub>
+```js
+//...
+
+  clickSquare = (col, row) => {
+     if( typeof this.state.selectedCol === 'number' ){
+       // move the piece
+     } else {
+       // select the piece (our code from before)
+       this.setState({ selectedCol: col, selectedRow: row });
+     }
+  }
+
+//...
+```
+
+ok, now we can select one piece once, and then we get stuck there thinking where to move that piece forever! D:
+
+
+all we have to do is calculate the next boardful of pieces, and our game should work!
+
+
+<sub>./src/App.js</sub>
+```js
+//...
+
+  clickSquare = (col, row) => {
+     if( typeof this.state.selectedCol === 'number' ){
+       // move the piece
+       const nextPieces = JSON.parse( JSON.stringify( this.state.pieces )); // copy the pieces
+
+       // move the selected piece to the clicked square
+       nextPieces[col][row] = this.state.pieces[this.state.selectedCol][this.state.selectedRow];
+
+       // empty the moved-from square
+       nextPieces[this.state.selectedCol][this.state.selectedRow] = '';
+
+       // set the nextPieces back into state, clear selection
+       this.setState({ pieces: nextPieces, selectedCol: null, selectedRow: null });
+       
+     } else {
+       // select the piece (our code from before)
+       this.setState({ selectedCol: col, selectedRow: row });
+     }
+  }
+
+//...
+```
+
+Great!, now take a break and play some chess.
+
+here, we've written this up in imperative style, as it the most legible.
+
+anyone who wants to write this as nested `.map`s or `.reduce`s is encouraged to do so on their own time :D
 
 
 
 
-(( remember is selectedSquare not selectedPiece ))
+##### unselecting the piece
+
+one last feature that will make this app more usable is that when we reclick the selected square, we should unselect it. (currently it deletes the piece from existence D:)
+
+let's put a simple check into our `clickSquare` function to do the right thing
+
+<sub>./src/App.js</sub>
+```js
+//...
+
+  clickSquare = (col, row) => {
+     if( typeof this.state.selectedSquare === 'number' ){
+       // if reselecting, set state.selectedSquare to null
+       if( this.state.selectedCol === col && this.state.selectedRow === row )
+         return this.setState({ selectedCol: null, selectedRow: null });
+
+       // move the piece
+       //...
+  }
+
+//...
+```
+
+instead of `return` we could also wrap the piece movement logic in an else block.
+
+
+!!! that's the game, I hope you enjoyed it !!!
+
+
+(link to heroku deployment instructions)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
