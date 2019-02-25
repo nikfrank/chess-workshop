@@ -255,7 +255,7 @@ we'll also need a `min-height` on the `.Square`
 }
 ```
 
-`min-height` on the `.Square` is necessary to give the div a size because it has no children elements - `100%` will by default be measured reelative to the flex parent, which here is the `.Row`, which is what we want (that the `.Square` be the entire height of the `.Row`)
+`min-height` on the `.Square` is necessary to give the div a size because it has no children elements - `100%` will by default be measured relative to the flex parent, which here is the `.Row`, which is what we want (that the `.Square` be the entire height of the `.Row`)
 
 
 ##### initial board, array of arrays
