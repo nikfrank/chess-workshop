@@ -663,7 +663,7 @@ what we want to do is declare a `style` prop that puts a `backgroundColor` value
 we can start with
 
 <sub>./src/App.js</sub>
-```js
+```html
 //...
 
 <div className='Square' style={{ backgroundColor: 'gold' }}>
@@ -679,7 +679,7 @@ but that always makes every `.Square` gold! We want to use the indices we saved 
 so this is where we get to use the inline conditional (ternary) operator to get our task done
 
 <sub>./src/App.js</sub>
-```js
+```html
 //...
 
 <div className='Square'
