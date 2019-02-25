@@ -371,7 +371,7 @@ const rowIndex = 0; // the first row, aka the "1st rank"
 console.log( this.state.pieces[ rowIndex ][ columnIndex ] ); // 'Q', a white Queen
 // ... in the starting position at least
 
-// or if we wanted the entire column
+// or if we wanted the entire row
 
 console.log( this.state.pieces[0] ); // ['R','N','B','Q','K','B','N','R'] is logged
 ```
@@ -569,11 +569,11 @@ select a square
 ```js
 //..
 
-  clickSquare = (col, row)=> this.setState({ selectedCol: col, selectedRow: row })
+  clickSquare = (row, col)=> this.setState({ selectedRow: row, selectedCol: col })
 
 //...
 
-  <div className="Square" onClick={()=> this.clickSquare(colIndex, rowIndex)}>
+  <div className="Square" onClick={()=> this.clickSquare(rowIndex, colIndex)}>
     <Piece piece={piece}/>
   </div>
 
@@ -582,14 +582,14 @@ select a square
 
 ok so what?
 
-let's log out our `this.state.selectedCol` and `this.state.selectedRow` to see what we get
+let's log out our `this.state.selectedRow` and `this.state.selectedCol` to see what we get
 
 <sub>./src/App.js</sub>
 ```js
 //..
 
   render(){
-    console.log( this.state.selectedCol, this.state.selectedRow );
+    console.log( this.state.selectedRow, this.state.selectedCol );
 
     //...
   }
@@ -683,15 +683,15 @@ so this is where we get to use the inline conditional (ternary) operator to get 
 //...
 
 <div className='Square'
-     style={{ backgroundColor: this.state.selectedCol === colIndex &&
-                               this.state.selectedRow === rowIndex ? 'gold' : '' }}>
+     style={{ backgroundColor: this.state.selectedRow === rowIndex &&
+                               this.state.selectedCol === colIndex ? 'gold' : '' }}>
   <Piece piece={piece}
 </div>
 
 //...
 ```
 
-so this way, we change to a gold backgroundColor iff (in our loop) we're currently rendering the selected square (which we know by checking that the current `colIndex` and `rowIndex` that we're rendering are equal to the values we saved in `state` during the click handle)
+so this way, we change to a gold backgroundColor iff (in our loop) we're currently rendering the selected square (which we know by checking that the current `rowIndex` and `colIndex` that we're rendering are equal to the values we saved in `state` during the click handle)
 
 
 very good!
@@ -706,7 +706,7 @@ when we click again, we should see that the selected square updates each time to
 
 while entertaining, this is not how we're going to win at chess!
 
-what we want to do instead, is when we click (and out `clickSquare` function is run), if there is a number saved already in `this.state.selectedCol/Row`, we want to move the piece
+what we want to do instead, is when we click (and out `clickSquare` function is run), if there is a number saved already in `this.state.selectedRow/Col`, we want to move the piece
 
 
 let's pseducode this in
@@ -716,12 +716,12 @@ let's pseducode this in
 ```js
 //...
 
-  clickSquare = (col, row) => {
+  clickSquare = (row, col) => {
      if( typeof this.state.selectedCol === 'number' ){
        // move the piece
      } else {
        // select the piece (our code from before)
-       this.setState({ selectedCol: col, selectedRow: row });
+       this.setState({ selectedRow: row, selectedCol: col });
      }
   }
 
@@ -738,23 +738,23 @@ all we have to do is calculate the next boardful of pieces, and our game should 
 ```js
 //...
 
-  clickSquare = (col, row) => {
+  clickSquare = (row, col) => {
      if( typeof this.state.selectedCol === 'number' ){
        // move the piece
        const nextPieces = JSON.parse( JSON.stringify( this.state.pieces )); // copy the pieces
 
        // move the selected piece to the clicked square
-       nextPieces[col][row] = this.state.pieces[this.state.selectedCol][this.state.selectedRow];
+       nextPieces[row][col] = this.state.pieces[this.state.selectedRow][this.state.selectedCol];
 
        // empty the moved-from square
-       nextPieces[this.state.selectedCol][this.state.selectedRow] = '';
+       nextPieces[this.state.selectedRow][this.state.selectedCol] = '';
 
        // set the nextPieces back into state, clear selection
-       this.setState({ pieces: nextPieces, selectedCol: null, selectedRow: null });
+       this.setState({ pieces: nextPieces, selectedRow: null, selectedCol: null });
        
      } else {
        // select the piece (our code from before)
-       this.setState({ selectedCol: col, selectedRow: row });
+       this.setState({ selectedRow: row, selectedCol: col });
      }
   }
 
@@ -780,11 +780,12 @@ let's put a simple check into our `clickSquare` function to do the right thing
 ```js
 //...
 
-  clickSquare = (col, row) => {
+  clickSquare = (row, col) => {
      if( typeof this.state.selectedSquare === 'number' ){
+     
        // if reselecting, set state.selectedSquare to null
-       if( this.state.selectedCol === col && this.state.selectedRow === row )
-         return this.setState({ selectedCol: null, selectedRow: null });
+       if( this.state.selectedRow === row && this.state.selectedCol === col )
+         return this.setState({ selectedRow: null, selectedCol: null });
 
        // move the piece
        //...
