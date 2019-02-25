@@ -667,7 +667,7 @@ we can start with
 //...
 
 <div className='Square' style={{ backgroundColor: 'gold' }}>
-  <Piece piece={piece}
+  <Piece piece={piece}/>
 </div>
 
 //...
@@ -685,7 +685,7 @@ so this is where we get to use the inline conditional (ternary) operator to get 
 <div className='Square'
      style={{ backgroundColor: this.state.selectedRow === rowIndex &&
                                this.state.selectedCol === colIndex ? 'gold' : '' }}>
-  <Piece piece={piece}
+  <Piece piece={piece}/>
 </div>
 
 //...
@@ -709,7 +709,7 @@ while entertaining, this is not how we're going to win at chess!
 what we want to do instead, is when we click (and out `clickSquare` function is run), if there is a number saved already in `this.state.selectedRow/Col`, we want to move the piece
 
 
-let's pseducode this in
+let's pseudocode this in
 
 
 <sub>./src/App.js</sub>
