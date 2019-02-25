@@ -706,7 +706,7 @@ when we click again, we should see that the selected square updates each time to
 
 while entertaining, this is not how we're going to win at chess!
 
-what we want to do instead, is when we click (and out `clickSquare` function is run), if there is a number saved already in `this.state.selectedRow/Col`, we want to move the piece
+what we want to do instead, is when we click (and our `clickSquare` function is run), if there is a number saved already in `this.state.selectedRow/Col`, we want to move the piece
 
 
 let's pseudocode this in
