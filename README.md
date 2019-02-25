@@ -487,7 +487,7 @@ regulation chessboards have a black square at A1 (which is [0][0] for us) and al
 
 <img src="https://somemoresport.files.wordpress.com/2013/10/20131022-181008.jpg" height=271 width=500 />
 
-so whenever the indices are both even (like A1 [0][0] was) or both odd (like B6 [1][5] is) we want a dark square
+so whenever the indices are both even (like A1 [0][0] was) or both odd (like B6 [5][1] is) we want a dark square
 
 CSS tricks has a great reference about `:nth-child` patterns [here](https://css-tricks.com/useful-nth-child-recipies/)
 
@@ -511,7 +511,7 @@ together, we're selecting any (even, even) pair and applying the `background-col
 
 
 
-lastly whenever it's (even, odd) (like A2 [0][1] is) or (odd, even) (like F5 [5][4] is) we want a light square
+lastly whenever it's (even, odd) (like A2 [1][0] is) or (odd, even) (like F5 [4][5] is) we want a light square
 
 <sub>./src/App.css</sub>
 ```css
