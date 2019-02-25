@@ -799,6 +799,14 @@ instead of `return` we could also wrap the piece movement logic in an else block
 !!! that's the game, I hope you enjoyed it !!!
 
 
+
+coming soon ...
+
+#### keeping track of whose turn it is
+
+#### updating the game clock
+
+
 (link to heroku deployment instructions)
 
 
