@@ -545,7 +545,9 @@ it may be instructive to tinker with these selectors (only put one of the two fo
 
 #### installing an npm module
 
-let's open up a shell (git bash for windows, or mac users use terminal) in the project directory and run
+our board could use some fancy looking chess pieces! Let's learn how to make it happen:
+
+open up a shell (git bash for windows, or mac users use terminal) in the project directory and run
 
 `$ yarn add react-chess-pieces`
 
