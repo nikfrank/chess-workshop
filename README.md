@@ -5,7 +5,13 @@ This is an entry level workshop to learn CSS Flexbox, ReactJS and using npm modu
 
 We may expand it later as a career track workshop using chess.js to implement the entirety of the chess game.
 
+Core Topics:
+
 Flex is a relatively new (CSS3) system which makes arranging lists of items on the page super intuitive and saves us from having to write dark-age 2005 ebaumsworld CSS.
+
+ReactJS is a lovely functional front end framework maintained by facebook, which is probably the best to learn if you want to create value and make money writing javascript.
+
+npm and its modules constitute the "open source community" of modern javascript. For most things we need to do "there's an npm module for that", and so being able to use the modules or contribute to the community are fundamental to succeeding in hi tech.
 
 ---
 
