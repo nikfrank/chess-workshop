@@ -128,7 +128,7 @@ let's replace it with
 
 after we update our code, we should save it (ctrl + s in most text editors)
 
-then we can see it running updated in the browser at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+then we can see it running updated in the browser at [localhost:3000](http://localhost:3000)
 
 talk about `div` soup!, just a div for a Board, some Row divs each with Square divs in them
 
