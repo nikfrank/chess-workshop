@@ -34,6 +34,8 @@ agenda:
 
 ---
 
+### getting started
+
 let's open up a shell (git bash for windows, or mac users use terminal) in our code projects directory and run
 
 `$ create-react-app chess`
