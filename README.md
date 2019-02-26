@@ -54,6 +54,8 @@ or on windows, run git bash as an administrator and run
 
 then close the terminal / shell / git bash window and reopen it to have `yarn` available! :D
 
+finally, let's run `$ npm start` to get the dev server running (this will update our page in the browser when we save a file)
+
 ---
 
 ### rendering basics
@@ -124,7 +126,7 @@ let's replace it with
 //...
 ```
 
-after we update our code, we should save it (ctrl + s in most text editors) so we can see it running updated in the browser.
+after we update our code, we should save it (ctrl + s in most text editors) so we can see it running updated in the browser at [localhost:3000](http://localhost:3000)
 
 talk about `div` soup!, just a div for a Board, some Row divs each with Square divs in them
 
