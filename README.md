@@ -667,13 +667,17 @@ the solution you're looking for calculates a `style` prop using `this.state`.som
 
 ...
 
-<img src="/something" width=200 height=800 />
+<img src="https://i.redd.it/8mvpr95lpw821.jpg" width=551 height=980 />
 ...
 
 
 for everyone who figured it out, congratulations, you're a great inline conditional writer
 
+<img src="https://i.giphy.com/media/anxJh9Vufpgvm/giphy.webp" width=350 height=260 />
+
 for those of you who are just here for the show:
+
+<img src="https://media.giphy.com/media/PaPvxVB5dD6py/giphy.gif" width=480 height=270 />
 
 
 what we want to do is declare a `style` prop that puts a `backgroundColor` value onto our div
